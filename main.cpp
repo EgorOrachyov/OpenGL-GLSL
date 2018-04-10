@@ -17,11 +17,11 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
     glfwMakeContextCurrent(window);
     glewInit();
-    //PrintContextInfo();
+    PrintContextInfo();
 
     char vertShader[] = "../Shaders/basic.vert";
     char * shaderCode = LoadShaderAsString(vertShader);
-    printf("%s \n", shaderCode);
+    GLuint vsID = LoadShaderObject(GL_VERTEX_SHADER, shaderCode);
 
     bool isDone = false;
     while(!isDone)

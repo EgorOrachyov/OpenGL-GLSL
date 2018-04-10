@@ -44,7 +44,7 @@ const int BUFFER_SIZE = 16000;
         if (condition) { \
             \
         } else { \
-            printf("[ASSERT:ERROR] CONDITION: %s, LINE: %i, FILE: %s \n", #condition, __LINE__, __FILE__); \
+            fprintf(stderr, "[ASSERT:ERROR] CONDITION: %s, LINE: %i, FILE: %s \n", #condition, __LINE__, __FILE__); \
         } \
     }
 #else
@@ -53,7 +53,7 @@ const int BUFFER_SIZE = 16000;
 
 #ifdef DEBUG
     #define INFO(message) { \
-        printf("[INFO]: %s, LINE: %i, FILE: %s \n", message, __LINE__, __FILE__); \
+        fprintf(stdout, "[INFO]: %s, LINE: %i, FILE: %s \n", message, __LINE__, __FILE__); \
     }
 #else
     #define INFO(message)
@@ -61,7 +61,7 @@ const int BUFFER_SIZE = 16000;
 
 #ifdef DEBUG
     #define WARNING(message) { \
-        printf("[INFO]: %s, LINE: %i, FILE: %s \n", message, __LINE__, __FILE__); \
+        fprintf(stdout, "[WARNING]: %s, LINE: %i, FILE: %s \n", message, __LINE__, __FILE__); \
     }
 #else
     #define WARNING(message)
@@ -69,7 +69,11 @@ const int BUFFER_SIZE = 16000;
 
 #ifdef DEBUG
     #define ERROR(message) { \
-        printf("[INFO]: %s, LINE: %i, FILE: %s \n", message, __LINE__, __FILE__); \
+        fprintf(stderr, "[ERROR]: %s, LINE: %i, FILE: %s \n", message, __LINE__, __FILE__); \
+    }
+
+    #define ERROR_LOG(message, log) { \
+        fprintf(stderr, "[ERROR]: %s \n%s\nLINE: %i, FILE: %s \n", message, log, __LINE__, __FILE__); \
     }
 #else
     #define ERROR(message)
