@@ -1,12 +1,12 @@
-#version 120
+#version 410
 
-uniform Transformation {
-    mat4 projection_matrix;
-    mat4 modelview_matrix;
-};
+layout (location=0) in vec3 VertexPosition;
+layout (location=1) in vec3 VertexColor;
 
-uniform vec3 vertex;
+out vec3 Color;
 
-void main() {
-    gl_Position = projection_matrix * modelview_matrix * vec4(vertex, 1.0);
+void main()
+{
+    Color = VertexColor;
+    gl_Position = vec4(VertexPosition, 1.0);
 }

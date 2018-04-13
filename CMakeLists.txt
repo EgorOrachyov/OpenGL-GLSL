@@ -4,21 +4,24 @@ project(OpenGL-GLSL)
 set(TARGET OpenGL-GLSL)
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(OpenGL-GLSL main.cpp)
+add_executable(OpenGL-GLSL main.cpp Common/Common.h Common/Context.h Source/Context.cpp Common/ShaderLoader.h Source/ShaderLoader.cpp)
 
 #-----------------------------------------------------------------------
 # Set common information for c++ compiler
 #-----------------------------------------------------------------------
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O0 -v \
+if (APPLE)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O0 -v \
      -I/usr/local/include -I/opt/X11/include \
      -L/usr/local/lib -L/opt/X11/lib \
      -w -framework OpenGL -lGLEW -lGLFW \
      -lXxf86vm -lpthread -lXrandr -lXinerama -lXi -lXcursor\
-     -framework COCOA -framework COREVIDEO -framework IOKIT \
+     -framework COCOA -framework COREVIDEO -framework IOKIT -framework CARBON \
      -L/usr/local/Cellar/freetype/2.9/lib -I/usr/local/Cellar/freetype/2.9/include/freetype2 -lFREETYPE \
      -L/usr/local/Cellar/freeimage/3.17.0_1/lib -I/usr/local/Cellar/freeimage/3.17.0_1/include -lFREEIMAGE \
-     -L/usr/local/Cellar/ftgl/2.1.3-rc5/lib -I/usr/local/Cellar/ftgl/2.1.3-rc5/include -lFTGL")
+     -L/usr/local/Cellar/ftgl/2.1.3-rc5/lib -I/usr/local/Cellar/ftgl/2.1.3-rc5/include -lFTGL\
+     ")
+endif (APPLE)
 
 #-----------------------------------------------------------------------
 # Find OPENGL GLEW GLFW3 GLM PKGCONFIG COCOA IOKIT COREVIDEO
