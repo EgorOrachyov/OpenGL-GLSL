@@ -9,7 +9,7 @@
 // Compilation mode
 //--------------------------------------------------------------
 
-#define DEBUG
+#define DEBUG 1
 
 //--------------------------------------------------------------
 // Standard includes
@@ -22,52 +22,43 @@
 #include <cstring>
 
 //--------------------------------------------------------------
-// OpenGL includes
+// Common consts and buffers
 //--------------------------------------------------------------
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+const int STRING_SIZE_128 = 128;
+const int STRING_SIZE_256 = 256;
+const int STRING_SIZE_512 = 512;
+const int STRING_SIZE_1024 = 512;
+const int STRING_SIZE_2048 = 512;
 
-//--------------------------------------------------------------
-// Common consts
-//--------------------------------------------------------------
-
-const int STRING_SIZE = 512;
-const int BUFFER_SIZE = 16000;
+//char STRING_BUFFER_128[128];
+//char STRING_BUFFER_256[256];
+//char STRING_BUFFER_512[512];
+//char STRING_BUFFER_1024[1024];
+//char STRING_BUFFER_2048[2048];
 
 //--------------------------------------------------------------
 // Debug tools
 //--------------------------------------------------------------
 
-#ifdef DEBUG
-    #define ASSERT(condition) { \
+#if DEBUG
+    #define ASSERT(condition, message) { \
         if (condition) { \
             \
         } else { \
-            fprintf(stderr, "[ASSERT:ERROR] CONDITION: %s, LINE: %i, FILE: %s \n", #condition, __LINE__, __FILE__); \
+            fprintf(stderr, "[ERROR]: %s\n[CONDITION]: %s, LINE: %i, FILE: %s \n", message, #condition, __LINE__, __FILE__); \
+            exit(EXIT_FAILURE); \
         } \
     }
-#else
-    #define ASSERT(condition)
-#endif
 
-#ifdef DEBUG
     #define INFO(message) { \
         fprintf(stdout, "[INFO]: %s, LINE: %i, FILE: %s \n", message, __LINE__, __FILE__); \
     }
-#else
-    #define INFO(message)
-#endif
 
-#ifdef DEBUG
     #define WARNING(message) { \
         fprintf(stdout, "[WARNING]: %s, LINE: %i, FILE: %s \n", message, __LINE__, __FILE__); \
     }
-#else
-    #define WARNING(message)
-#endif
 
-#ifdef DEBUG
     #define ERROR(message) { \
         fprintf(stderr, "[ERROR]: %s, LINE: %i, FILE: %s \n", message, __LINE__, __FILE__); \
     }
@@ -75,8 +66,17 @@ const int BUFFER_SIZE = 16000;
     #define ERROR_LOG(message, log) { \
         fprintf(stderr, "[ERROR]: %s \n%s\nLINE: %i, FILE: %s \n", message, log, __LINE__, __FILE__); \
     }
+
 #else
+
+    #define ASSERT(condition)
+
+    #define INFO(message)
+
+    #define WARNING(message)
+
     #define ERROR(message)
+
 #endif
 
 #endif //OPENGL_GLSL_COMMON_H
